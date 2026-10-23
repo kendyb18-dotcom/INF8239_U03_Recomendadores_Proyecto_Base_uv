@@ -1,0 +1,11 @@
+# Cierre Interpretativo - U03.LAB09
+**Asignatura:** INF-8239 Ciencia de Datos II
+
+## Resultados de Evaluación
+*   **Resultado de ratings:** El modelo logró un RMSE aproximado de 1.026. Aunque el error disminuye, esto solo indica que aproxima mejor los ratings observados, pero no garantiza directamente que los ítems relevantes queden en el Top-N de las recomendaciones.
+*   **Resultado de ranking:** Se utilizó HitRate@10 (3.74%) para evaluar la calidad real de la recomendación, confirmando empíricamente la proporción de usuarios que encontraron su ítem oculto entre sus 10 primeros resultados.
+*   **Cobertura del catálogo:** Se observó una cobertura baja (~7.75%). El modelo tiende a concentrar las recomendaciones, sacrificando la exposición de ítems de la "larga cola" (long tail) a cambio de maximizar el acierto con películas más seguras.
+*   **Comportamiento del usuario frío:** Para usuarios sin historial, el modelo colaborativo carece de vector. El sistema mitiga este problema de *cold start* inyectando un fallback ("popularidad por cantidad y media; no personalizada"), garantizando que el sistema no falle y siempre devuelva una lista.
+*   **Configuración seleccionada y evidencia:** Se seleccionó **Alpha 0.75** (dominancia colaborativa). La evidencia demostró que darle mayor peso al historial de consumo real (HitRate 3.74%) es más efectivo que priorizar estrictamente el contenido (Alpha 0.25 bajó el HitRate a 3.23%).
+*   **Costo computacional:** Tras construir la tabla de Pareto, se descartó el modelo de 10 factores. La reducción computacional fue imperceptible (~0.3 segundos de ahorro), mientras que penalizó negativamente la utilidad del recomendador. Se conservó el modelo de 20 factores.
+*   **Riesgo principal y mitigación:** El riesgo principal es la **Burbuja de filtro** y la retroalimentación de la popularidad. Esto se mitiga parcialmente gracias a la naturaleza del sistema híbrido, que al mantener una fracción (0.25) de similitud por contenido, intenta introducir diversidad frente a la tendencia puramente colaborativa.
