@@ -5,6 +5,7 @@ description = "Sistemas recomendadores reproducibles para INF-8239"
 readme = "README.md"
 requires-python = ">=3.12,<3.13"
 dependencies = [
+  "fpdf2>=2.8.9",
   "joblib>=1.4,<2",
   "matplotlib>=3.9,<4",
   "numpy>=2.0,<3",
